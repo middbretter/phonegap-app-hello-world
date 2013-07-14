@@ -43,15 +43,15 @@ var app = {
     
     // onSuccess Geolocation
     onSuccess: function (position) {
-        var element = document.getElementById("geolocation");
-        element.innerHTML = "Latitude: "           + position.coords.latitude              + "<br />" +
-                            "Longitude: "          + position.coords.longitude             + "<br />" +
-                            "Altitude: "           + position.coords.altitude              + "<br />" +
-                            "Accuracy: "           + position.coords.accuracy              + "<br />" +
-                            "Altitude Accuracy: "  + position.coords.altitudeAccuracy      + "<br />" +
-                            "Heading: "            + position.coords.heading               + "<br />" +
-                            "Speed: "              + position.coords.speed                 + "<br />" +
-                            "Timestamp: "          + position.timestamp                    + "<br />";
+        // var element = document.getElementById("geolocation");
+        // element.innerHTML = "Latitude: "           + position.coords.latitude              + "<br />" +
+                            // "Longitude: "          + position.coords.longitude             + "<br />" +
+                            // "Altitude: "           + position.coords.altitude              + "<br />" +
+                            // "Accuracy: "           + position.coords.accuracy              + "<br />" +
+                            // "Altitude Accuracy: "  + position.coords.altitudeAccuracy      + "<br />" +
+                            // "Heading: "            + position.coords.heading               + "<br />" +
+                            // "Speed: "              + position.coords.speed                 + "<br />" +
+                            // "Timestamp: "          + position.timestamp                    + "<br />";
         var map;
         console.log("Latitude is: " + position.coords.latitude);
         console.log("Longitude is: " + position.coords.longitude);
@@ -84,9 +84,9 @@ var app = {
         navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError);
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector(".listening");
-        var receivedElement = parentElement.querySelector(".received");
+        // var receivedElement = parentElement.querySelector(".received");
 
         listeningElement.setAttribute("style", "display:none;");
-        receivedElement.setAttribute("style", "display:block;");
+        // receivedElement.setAttribute("style", "display:block;");
     }
 };
