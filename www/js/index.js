@@ -27,7 +27,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener("DOMContentLoaded", this.onDeviceReady, false);
-        console.log("deviceready Listener Bound");
+        console.log("Step 1: deviceready Listener Bound");
     },
     // deviceready Event Handler
     //
@@ -35,12 +35,11 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        console.log("deviceready Event Fired");
     },
     
     // once the event is received, execute the geolocation function
     receivedEvent: function(id) {
-        console.log("Event Received");
+        console.log("Step 2: " + id + " Received");
         navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
@@ -48,8 +47,6 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
     },    
     
     // onSuccess Geolocation
