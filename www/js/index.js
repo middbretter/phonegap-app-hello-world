@@ -18,54 +18,54 @@
  */
 var app = {
     // Application Constructor
-    initialize: function() {
-        this.bindEvents();
+    initialize: function () {
+        app.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener("DOMContentLoaded", this.onDeviceReady, false);
+    bindEvents: function () {
+        document.addEventListener("click", app.onDeviceReady, false);
         console.log("Step 1: deviceready Listener Bound");
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+    onDeviceReady: function () {
+        app.receivedEvent("click");
+    },
+
+    // once the event is received, execute the geolocation function
+    receivedEvent: function (id) {
+        console.log("Step 2: " + id + " Received");
+        navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError);
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector(".listening");
+        var receivedElement = parentElement.querySelector(".received");
+
+        listeningElement.setAttribute("style", "display:none;");
+        receivedElement.setAttribute("style", "display:block;");
     },
     
-    // once the event is received, execute the geolocation function
-    receivedEvent: function(id) {
-        console.log("Step 2: " + id + " Received");
-        navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-    },    
-    
     // onSuccess Geolocation
-    onSuccess: function(position) {
-        var element = document.getElementById('geolocation');
+    onSuccess: function (position) {
+        var element = document.getElementById("geolocation");
         console.log(element);
-        element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-                            'Longitude: '          + position.coords.longitude             + '<br />' +
-                            'Altitude: '           + position.coords.altitude              + '<br />' +
-                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
-                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-                            'Heading: '            + position.coords.heading               + '<br />' +
-                            'Speed: '              + position.coords.speed                 + '<br />' +
-                            'Timestamp: '          + position.timestamp                    + '<br />';
-        },
+        element.innerHTML = "Latitude: "           + position.coords.latitude              + "<br />" +
+                            "Longitude: "          + position.coords.longitude             + "<br />" +
+                            "Altitude: "           + position.coords.altitude              + "<br />" +
+                            "Accuracy: "           + position.coords.accuracy              + "<br />" +
+                            "Altitude Accuracy: "  + position.coords.altitudeAccuracy      + "<br />" +
+                            "Heading: "            + position.coords.heading               + "<br />" +
+                            "Speed: "              + position.coords.speed                 + "<br />" +
+                            "Timestamp: "          + position.timestamp                    + "<br />";
+    },
 
-        // onError Callback receives a PositionError object
-        onError: function(error) {
-            alert('code: '    + error.code    + '\n' +
-                  'message: ' + error.message + '\n');
-        }
+    // onError Callback receives a PositionError object
+    onError: function (error) {
+        alert("code: "    + error.code    + "\n" +
+              "message: " + error.message + "\n");
+    }
 };
