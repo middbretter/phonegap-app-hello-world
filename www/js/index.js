@@ -43,7 +43,8 @@ var app = {
     
     // onSuccess Geolocation
     onSuccess: function (position) {
-        // var element = document.getElementById("geolocation");
+        var element = document.getElementById("geolocation");
+        element.innerHTML = "Location Found";
         // element.innerHTML = "Latitude: "           + position.coords.latitude              + "<br />" +
                             // "Longitude: "          + position.coords.longitude             + "<br />" +
                             // "Altitude: "           + position.coords.altitude              + "<br />" +
@@ -62,7 +63,7 @@ var app = {
             map = new google.maps.Map(mapDiv, {
                 center: latLng,
                 zoom: 14,
-                mapTypeId: google.maps.MapTypeId.HYBRID
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             });
             var marker = new google.maps.Marker({
                 position: latLng,
@@ -84,9 +85,9 @@ var app = {
         navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError);
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector(".listening");
-        // var receivedElement = parentElement.querySelector(".received");
+        var receivedElement = parentElement.querySelector(".received");
 
         listeningElement.setAttribute("style", "display:none;");
-        // receivedElement.setAttribute("style", "display:block;");
+        receivedElement.setAttribute("style", "display:block;");
     }
 };
