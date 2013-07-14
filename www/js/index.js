@@ -33,22 +33,34 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.onSuccess('deviceready');
+        app.receivedEvent('deviceready');
+    },
+    
+    // once the event is received, execute the geolocation function
+    receivedEvent: function(id) {
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
-        }
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
 
-        // onSuccess Geolocation
-        function onSuccess(position) {
-            var element = document.getElementById('geolocation');
-            console.log(element);
-            element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-                                'Longitude: '          + position.coords.longitude             + '<br />' +
-                                'Altitude: '           + position.coords.altitude              + '<br />' +
-                                'Accuracy: '           + position.coords.accuracy              + '<br />' +
-                                'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-                                'Heading: '            + position.coords.heading               + '<br />' +
-                                'Speed: '              + position.coords.speed                 + '<br />' +
-                                'Timestamp: '          + position.timestamp                    + '<br />';
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        console.log('Received Event: ' + id);
+    }    
+    
+    // onSuccess Geolocation
+    function onSuccess(position) {
+        var element = document.getElementById('geolocation');
+        console.log(element);
+        element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+                            'Longitude: '          + position.coords.longitude             + '<br />' +
+                            'Altitude: '           + position.coords.altitude              + '<br />' +
+                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+                            'Heading: '            + position.coords.heading               + '<br />' +
+                            'Speed: '              + position.coords.speed                 + '<br />' +
+                            'Timestamp: '          + position.timestamp                    + '<br />';
         }
 
         // onError Callback receives a PositionError object
