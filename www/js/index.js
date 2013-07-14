@@ -26,7 +26,8 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function () {
-        document.addEventListener("click", app.onDeviceReady, false);
+        var findButton = document.getElementById("find-location");
+        findButton.addEventListener("click", app.onDeviceReady, false);
         console.log("Step 1: deviceready Listener Bound");
     },
     // deviceready Event Handler
@@ -35,6 +36,46 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function () {
         app.receivedEvent("click");
+    },
+    
+    // attempt to map the phone's location
+
+    
+    // onSuccess Geolocation
+    onSuccess: function (position) {
+        var element = document.getElementById("geolocation");
+        element.innerHTML = "Latitude: "           + position.coords.latitude              + "<br />" +
+                            "Longitude: "          + position.coords.longitude             + "<br />" +
+                            "Altitude: "           + position.coords.altitude              + "<br />" +
+                            "Accuracy: "           + position.coords.accuracy              + "<br />" +
+                            "Altitude Accuracy: "  + position.coords.altitudeAccuracy      + "<br />" +
+                            "Heading: "            + position.coords.heading               + "<br />" +
+                            "Speed: "              + position.coords.speed                 + "<br />" +
+                            "Timestamp: "          + position.timestamp                    + "<br />";
+        var map;
+        console.log("Latitude is: " + position.coords.latitude);
+        console.log("Longitude is: " + position.coords.longitude);
+        var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        function initializeMap() {
+            var mapDiv = document.getElementById('map-canvas');
+            console.log("MAPS LOADING...");
+            map = new google.maps.Map(mapDiv, {
+                center: latLng,
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.HYBRID
+            });
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map
+            });
+      }
+      initializeMap();
+    },
+    
+    // onError Callback receives a PositionError object
+    onError: function (error) {
+        alert("code: "    + error.code    + "\n" +
+              "message: " + error.message + "\n");
     },
 
     // once the event is received, execute the geolocation function
@@ -47,25 +88,5 @@ var app = {
 
         listeningElement.setAttribute("style", "display:none;");
         receivedElement.setAttribute("style", "display:block;");
-    },
-    
-    // onSuccess Geolocation
-    onSuccess: function (position) {
-        var element = document.getElementById("geolocation");
-        console.log(element);
-        element.innerHTML = "Latitude: "           + position.coords.latitude              + "<br />" +
-                            "Longitude: "          + position.coords.longitude             + "<br />" +
-                            "Altitude: "           + position.coords.altitude              + "<br />" +
-                            "Accuracy: "           + position.coords.accuracy              + "<br />" +
-                            "Altitude Accuracy: "  + position.coords.altitudeAccuracy      + "<br />" +
-                            "Heading: "            + position.coords.heading               + "<br />" +
-                            "Speed: "              + position.coords.speed                 + "<br />" +
-                            "Timestamp: "          + position.timestamp                    + "<br />";
-    },
-
-    // onError Callback receives a PositionError object
-    onError: function (error) {
-        alert("code: "    + error.code    + "\n" +
-              "message: " + error.message + "\n");
     }
 };
