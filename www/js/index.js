@@ -27,14 +27,14 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function () {
         var findButton = document.getElementById("find-location");
-        findButton.addEventListener("click", app.onDeviceReady, false);
+        findButton.addEventListener("click", app.locateMe, false);
         console.log("Step 1: deviceready Listener Bound");
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function () {
+    locateMe: function () {
         app.receivedEvent("click");
     },
     
