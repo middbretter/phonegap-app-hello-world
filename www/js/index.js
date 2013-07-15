@@ -37,10 +37,10 @@ var app = {
     locateMe: function () {
         app.receivedEvent("click");
     },
-    
+
     // attempt to map the phone's location
 
-    
+
     // onSuccess Geolocation
     onSuccess: function (position) {
         var element = document.getElementById("geolocation");
@@ -72,7 +72,7 @@ var app = {
       }
       initializeMap();
     },
-    
+
     // onError Callback receives a PositionError object
     onError: function (error) {
         alert("code: "    + error.code    + "\n" +
@@ -82,12 +82,17 @@ var app = {
     // once the event is received, execute the geolocation function
     receivedEvent: function (id) {
         console.log("Step 2: " + id + " Received");
-        navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError);
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector(".listening");
-        var receivedElement = parentElement.querySelector(".received");
+        if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError);
+	        var parentElement = document.getElementById(id);
+	        var listeningElement = parentElement.querySelector(".listening");
+	        var receivedElement = parentElement.querySelector(".received");
 
-        listeningElement.setAttribute("style", "display:none;");
-        receivedElement.setAttribute("style", "display:block;");
+	        listeningElement.setAttribute("style", "display:none;");
+	        receivedElement.setAttribute("style", "display:block;");
+	    } else {
+	    	var errorElement = document.getElementById("geolocation");
+	    	errorElement.innerHTML="Geolocation is not supported by this browser.";
+	    }
     }
 };

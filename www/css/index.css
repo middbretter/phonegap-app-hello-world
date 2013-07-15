@@ -51,7 +51,6 @@ h1 {
     font-size:24px;
     margin:0px 30px;
     padding:2px 0px;
-    height: 
 }
 
 .event.listening {
@@ -69,7 +68,7 @@ h1 {
     margin-right:auto;
     width: 560px;
 }
- 
+
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
@@ -84,17 +83,17 @@ h1 {
 
 @media (min-width: 768px) and (max-width: 979px) {
   .app {
-    width: 650px;  
+    width: 650px;
   }
 }
 @media (max-width: 767px) {
   .app {
-    width: 450px;  
+    width: 450px;
   }
 }
 @media (max-width: 480px) {
   .app {
-    width: 300px;  
+    width: 300px;
   }
 }
 @media (min-width: 1200px) {
